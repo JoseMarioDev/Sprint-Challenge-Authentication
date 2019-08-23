@@ -9,7 +9,7 @@ router.post('/register', (req, res) => {
   // implement registration
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 10);
-  user.password = hash;
+  user.password = hash; 
 
   Users.add(user)
     .then(newUser => {
@@ -23,6 +23,7 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
   // implement login
   let { username, password } = req.body;
+  console.log(req.body)
   Users.findBy({ username })
     .first()
     .then(user => {

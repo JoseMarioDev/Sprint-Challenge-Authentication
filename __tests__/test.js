@@ -13,13 +13,17 @@ describe('server', () => {
     await db('users').truncate();
   });
 
+  it("tests are running with DB_ENV set to 'testing'", () => {
+    expect(process.env.DB_ENV).toBe('testing');
+  });
+
   //api auth/register
   describe('POST /api/auth/register', () => {
     it('should insert new user, return 201', () => {
       return request(server)
         .post('/api/auth/register')
         .send({
-          username: 'testusers',
+          username: 'testuser2',
           password: 'test1',
         })
         .then(res => {
@@ -46,8 +50,8 @@ describe('server', () => {
       return request(server)
         .post('/api/auth/login')
         .send({
-          username: 'jmontero',
-          password: 'testing123',
+          username: 'testusers',
+          password: 'test1',
         })
         .then(res => {
           expect(res.status).toBe(200);
@@ -66,8 +70,8 @@ describe('server', () => {
     });
 
     //api/jokes
-    describe('get jokes', () => {
-      describe('GET /api/jokes', () => {
+    describe('GET api/jokes', () => {
+      describe('get jokes', () => {
         it('should return all jokes', () => {
           return request(server)
             .get('/api/jokes')
